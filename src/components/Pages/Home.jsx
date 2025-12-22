@@ -7,8 +7,6 @@ import { faStar, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 const Home = ({addToCart, removeFromCart}) => {
   
   const [data, setData] = useState();
-  console.log(data, 'data');
-  
 
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")

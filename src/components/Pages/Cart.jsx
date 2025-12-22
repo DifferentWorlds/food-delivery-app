@@ -10,14 +10,12 @@ const cartCountMap = cartItems && cartItems.reduce((acc, name) => {
   acc[name] = (acc[name] || 0) + 1;
   return acc;
 }, {});
-console.log(cartCountMap, 'cartcountmappp');
-
     
     return(
         <>
-{cartItems.length > 0 ? ([...new Set(cartItems)].map(item => (
+{cartItems.length > 0 ? ([...new Set(cartItems)].map((item, index) => (
         <Container>
-      <Row className='items-row'>
+      <Row key={index} className='items-row'>
         <Col sm={8}>{item}</Col>
         <Col sm={4}>x {cartCountMap[item]}</Col>
       </Row>
@@ -25,14 +23,8 @@ console.log(cartCountMap, 'cartcountmappp');
 
 ))) : <p className='no-cart-items'>add items to show here!</p>}
 {cartItems.length > 0 && <Button variant="warning" onClick={placeOrder}>Place Order</Button>}
-
 {order && <div className='top-notification'>your order has been placed!</div>}
-    
 </>
-
-
-        
-    )
-}
+    )}
 
 export default Cart;

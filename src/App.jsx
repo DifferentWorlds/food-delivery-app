@@ -1,17 +1,15 @@
+//library
+import { useState, useEffect } from "react";
+import {Route, Routes, BrowserRouter } from "react-router";
+import "react-awesome-button/dist/styles.css";
+import confetti from "canvas-confetti";
+//components
 import "./App.css";
-import React, { useEffect } from "react";
-import { Link, NavLink, Route, Routes, BrowserRouter } from "react-router";
 import Home from "./components/Pages/Home";
 import Cart from "./components/Pages/Cart";
-import Contact from "./components/Pages/Contact";
 import Header from "./components/layout/Header";
 import Logo from "./components/Pages/Logo";
-import "react-awesome-button/dist/styles.css";
 import Footer from "./components/layout/Footer";
-import { useState} from "react";
-import confetti from "canvas-confetti";
-
-
 
 function App() {
 
@@ -27,7 +25,6 @@ function App() {
     })
     return count;
   });
-
   const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem('cartItems')) || [])
 
   useEffect(() => {
@@ -44,31 +41,22 @@ function App() {
     }
   }, [order])
 
-
   const addToCart = (itemId, name) => {
     let count = Number(sessionStorage.getItem(`cartCount${itemId}`)) || 0;
     window.sessionStorage.setItem(`cartCount${itemId}`, count + 1);
 
     setTotalCart(prev => prev + 1);
-
-    // if(!cartItems.includes(name)){
     setCartItems(prev => [...prev, name]);
-
-
     setRefresh((x) => !x);
   };
-    console.log(cartItems, 'carttitems');
 
-    const placeOrder = () => {
-
+  const placeOrder = () => {
       Object.keys(sessionStorage).forEach(key => {
         if(key.startsWith('cartCount')){
           sessionStorage.setItem(key, 0)
         }
       })
-      setCartItems([])
-
-        confetti({
+    confetti({
           particleCount: 50,
           spread: 70,
           origin: { y: 0.6 },
@@ -77,11 +65,10 @@ function App() {
           ticks: 200,
           emojis: ["🎉"],
         });
-setOrder(true);
-    setRefresh((x) => !x);
+    setCartItems([])
+    setOrder(true);
     setTotalCart(0)
-
-
+    setRefresh((x) => !x);
     }
 
 
@@ -105,7 +92,6 @@ setOrder(true);
 
     setRefresh((x) => !x);
   };
-  console.log(totalCart, "carttt");
 
   return (
     <>
@@ -115,10 +101,8 @@ setOrder(true);
           <div className="main-content">
             <Routes>
               <Route path="/" element={<Logo />}></Route>
-
               <Route path="/home" element={<Home addToCart={addToCart} removeFromCart={removeFromCart}/>}></Route>
               <Route path="/about" element={<Cart order = {order} cartItems={cartItems} placeOrder={placeOrder}/>}></Route>
-              <Route path="/contact" element={<Contact />}></Route>
             </Routes>
           </div>
           <Footer />

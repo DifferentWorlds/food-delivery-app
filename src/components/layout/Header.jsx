@@ -2,11 +2,8 @@ import { Link, NavLink, Route, Routes, BrowserRouter } from "react-router";
 import "../../styles/HeaderStyle.css";
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../assets/logo/logo.png'
-// import cart from '../../assets/cart.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartArrowDown} from '@fortawesome/free-solid-svg-icons';
-
-
 
 const Header = ({totalCart}) => {
   return (
